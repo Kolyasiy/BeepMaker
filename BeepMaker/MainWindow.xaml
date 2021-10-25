@@ -1,0 +1,43 @@
+﻿<Window x:Class="BeepMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BeepMaker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Новый файл" Margin="10" Click="Button_Click"/>
+            <Button Content="Сгенерировать метод" Margin="10" Click="Button_Click_1"/>
+
+            <GroupBox Header="Название файла" Margin="10" Width="200">
+                <TextBox x:Name="FileName"/>
+            </GroupBox>
+        </StackPanel>
+
+        <GroupBox Grid.Row="1" Header="Список звуков">
+            <ScrollViewer >
+                <StackPanel Name="SoundsList"/>
+            </ScrollViewer>
+        </GroupBox>
+        
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button x:Name="AddSound" Content="Вставить звук" Margin="10" Height="30" Click="AddSound_Click"/>
+            <Button x:Name="AddPause" Content="Вставить паузу" Margin="10" Height="30" Click="AddPause_Click"/>
+
+            <Button x:Name="Play" Content="Возпроизвести все" Margin="10,30" Height="40" Click="Play_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

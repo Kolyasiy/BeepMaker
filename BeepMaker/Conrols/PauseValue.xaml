@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="BeepMaker.Conrols.PauseValue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BeepMaker.Conrols"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="800">
+    <GroupBox x:Name="MainPart" Header="Пауза">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Длительность(милисекунды)" Grid.RowSpan="2" VerticalAlignment="Center">
+                <TextBox x:Name="Duration" />
+            </GroupBox>
+
+            <StackPanel Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
+                <Button x:Name="PlayToHere" Margin="5" Grid.Column="1" Content="Возпроизвести до этого" Click="PlayToHere_Click"/>
+                <Button x:Name="DeletePause" Margin="5" Grid.Row="1" Grid.Column="1" Content="Удалить" Click="Delete_Click"/>
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+</UserControl>
