@@ -19,11 +19,12 @@
             </Grid.RowDefinitions>
 
             <GroupBox Header="Длительность(милисекунды)" Grid.RowSpan="2" VerticalAlignment="Center">
-                <TextBox x:Name="Duration" />
+                <TextBox x:Name="Duration" Text="1000"/>
             </GroupBox>
 
             <StackPanel Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
                 <Button x:Name="PlayToHere" Margin="5" Grid.Column="1" Content="Возпроизвести до этого" Click="PlayToHere_Click"/>
+                <Button x:Name="PlayFromHere" Margin="5" Grid.Column="1" Content="Возпроизвести c этого" Click="PlayFromHere_Click"/>
                 <Button x:Name="DeletePause" Margin="5" Grid.Row="1" Grid.Column="1" Content="Удалить" Click="Delete_Click"/>
             </StackPanel>
         </Grid>

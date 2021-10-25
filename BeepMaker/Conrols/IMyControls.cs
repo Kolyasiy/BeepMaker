@@ -16,6 +16,7 @@ namespace BeepMaker.Conrols
 
         void Play();
         void PlayToHere_Click(object sender, RoutedEventArgs e);
+        void PlayFromHere_Click(object sender, RoutedEventArgs e);
         void Delete_Click(object sender, RoutedEventArgs e);
     }
 }

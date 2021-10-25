@@ -22,16 +22,30 @@ namespace BeepMaker.Conrols
     public partial class SoundValue : UserControl, IMyControls
     {
         public StackPanel Owner { get; set; }
-        public int ID { get; set; }
         public string Code { get => $"\tConsole.Beep({Frequency.Text}, {Duration.Text});{Environment.NewLine}"; }
-
-
-        public SoundValue()
-        {
-            InitializeComponent();
+        private int id;
+        public int ID 
+        { 
+            get => id;
+            set
+            {
+                id = value;
+                MainPart.Header = $"Звук №{id + 1}";
+            } 
         }
 
-        public SoundValue(StackPanel owner)
+        public SoundValue() => InitializeComponent();
+
+        public SoundValue(StackPanel owner) => BaseConstruction(owner);
+
+        public SoundValue(StackPanel owner, int freq, int duration)
+        {
+            BaseConstruction(owner);
+            Frequency.Text = freq.ToString();
+            Duration.Text = duration.ToString();
+        }
+
+        private void BaseConstruction(StackPanel owner)
         {
             InitializeComponent();
             ID = owner.Children.Count;
@@ -40,6 +54,7 @@ namespace BeepMaker.Conrols
             Owner = owner;
             MainPart.Header = $"Звук №{ID + 1}";
         }
+
 
         private void PlaySound_Click(object sender, RoutedEventArgs e) => Play();
 
@@ -59,11 +74,32 @@ namespace BeepMaker.Conrols
         {
             for(int i = 0; i <= this.ID; i++)
             {
-                if (Owner.Children[i] is IMyControls)
-                    (Owner.Children[i] as IMyControls).Play();
-            }            
+                (Owner.Children[i] as IMyControls).Play();
+            }         
+        }
+
+        public void PlayFromHere_Click(object sender, RoutedEventArgs e)
+        {
+            for(int i = this.ID; i < Owner.Children.Count; i++)
+            {
+                (Owner.Children[i] as IMyControls).Play();
+            }
         }
 
         public void Delete_Click(object sender, RoutedEventArgs e) => Utility.DeleteItem(Owner, this);
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.LeftShift:
+                    Frequency.Text = (Convert.ToInt32(Frequency.Text) * 2).ToString();
+                    break;
+
+                case Key.LeftCtrl:
+                    Frequency.Text = (Convert.ToInt32(Frequency.Text) / 2).ToString();
+                    break;
+            }
+        }
     }
 }

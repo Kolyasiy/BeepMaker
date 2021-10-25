@@ -23,15 +23,29 @@ namespace BeepMaker.Conrols
     public partial class PauseValue : UserControl, IMyControls
     {
         public StackPanel Owner { get; set; }
-        public int ID { get; set; }
         public string Code { get => $"\tThread.Sleep({Duration.Text});{Environment.NewLine}"; }
-
-        public PauseValue()
+        private int id;
+        public int ID
         {
-            InitializeComponent();
+            get => id;
+            set
+            {
+                id = value;
+                MainPart.Header = $"Пауза №{id+1}";
+            }
         }
 
-        public PauseValue(StackPanel owner)
+        public PauseValue() => InitializeComponent();
+
+        public PauseValue(StackPanel owner) => BaseConstuction(owner);
+        
+        public PauseValue(StackPanel owner, int duration)
+        {
+            BaseConstuction(owner);
+            Duration.Text = duration.ToString();
+        }
+
+        private void BaseConstuction(StackPanel owner)
         {
             InitializeComponent();
             ID = owner.Children.Count;
@@ -44,7 +58,7 @@ namespace BeepMaker.Conrols
         public void Play()
         {
             try
-            { 
+            {
                 Thread.Sleep(Convert.ToInt32(Duration.Text));
             }
             catch
@@ -57,8 +71,15 @@ namespace BeepMaker.Conrols
         {
             for (int i = 0; i <= this.ID; i++)
             {
-                if (Owner.Children[i] is IMyControls)
-                    (Owner.Children[i] as IMyControls).Play();
+                (Owner.Children[i] as IMyControls).Play();
+            }
+        }
+
+        public void PlayFromHere_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = this.ID; i < Owner.Children.Count; i++)
+            {
+                (Owner.Children[i] as IMyControls).Play();
             }
         }
 

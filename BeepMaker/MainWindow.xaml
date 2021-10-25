@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeepMaker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -18,8 +18,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="Новый файл" Margin="10" Click="Button_Click"/>
-            <Button Content="Сгенерировать метод" Margin="10" Click="Button_Click_1"/>
+            <Button Content="Новый файл" Margin="10" Click="NewWork"/>
+            <Button Content="Сгенерировать метод" Margin="10" Click="GenerateMethod"/>
+            <Button Content="Сохранить файл" Margin="10" Click="SaveFile"/>
+            <Button Content="Загрузить файл" Margin="10" Click="LoadFile"/>
 
             <GroupBox Header="Название файла" Margin="10" Width="200">
                 <TextBox x:Name="FileName"/>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BeepMaker.Conrols"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="800">
+             d:DesignHeight="120" d:DesignWidth="800" KeyDown="UserControl_KeyDown">
     <GroupBox x:Name="MainPart" Header="Звук">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,16 +19,17 @@
             </Grid.RowDefinitions>
 
             <GroupBox Header="Частота(от 37 до 32767)" Height="50">
-                <TextBox x:Name="Frequency" />
+                <TextBox x:Name="Frequency" Text="37"/>
             </GroupBox>
 
             <GroupBox Header="Длительность(милисекунды)" Height="50" Grid.Row="1">
-                <TextBox x:Name="Duration"/>
+                <TextBox x:Name="Duration" Text="1000"/>
             </GroupBox>
 
             <StackPanel Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
                 <Button x:Name="PlaySound" Margin="5" Grid.Column="1" Content="Возпроизвести" Click="PlaySound_Click"/>
                 <Button x:Name="PlayToHere" Margin="5" Grid.Column="1" Content="Возпроизвести до этого" Click="PlayToHere_Click"/>
+                <Button x:Name="PlayFromHere" Margin="5" Grid.Column="1" Content="Возпроизвести с этого" Click="PlayFromHere_Click"/>
                 <Button x:Name="DeleteSound" Margin="5" Grid.Row="1" Grid.Column="1" Content="Удалить" Click="Delete_Click"/>
             </StackPanel>
         </Grid>

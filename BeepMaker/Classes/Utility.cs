@@ -16,9 +16,22 @@ namespace BeepMaker.Classes
             panel.Children.Remove(control);
             for(int i = 0; i < panel.Children.Count; i++)
             {
-                if(panel.Children[i] is IMyControls)
+                if (panel.Children[i] is IMyControls)
+                {
                     (panel.Children[i] as IMyControls).ID = i;
+                }
             }
+        }
+
+        public static int GetDigits(string val)
+        {
+            StringBuilder build = new StringBuilder();
+            char[] digits = val.Where(x => char.IsDigit(x)).ToArray();
+
+            foreach (char c in digits)
+                build.Append(c);
+
+            return Convert.ToInt32(build.ToString());
         }
 
         public static void ShowError(string val) => MessageBox.Show(val, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
