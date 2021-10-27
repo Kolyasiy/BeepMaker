@@ -95,12 +95,36 @@ namespace BeepMaker.Conrols
             switch (e.Key)
             {
                 case Key.LeftShift:
-                    Frequency.Text = (Convert.ToInt32(Frequency.Text) * 2).ToString();
+                    IncreaseFrequency();
                     break;
 
                 case Key.LeftCtrl:
-                    Frequency.Text = (Convert.ToInt32(Frequency.Text) / 2).ToString();
+                    DecreaseFrequency();
                     break;
+            }
+        }
+
+        private void DecreaseFrequency()
+        {
+            try
+            {
+                Frequency.Text = (Convert.ToInt32(Frequency.Text) / 2).ToString();
+            }
+            catch
+            {
+                Utility.ShowError("Некорректные данные в поле \"Частота\"");
+            }
+        }
+
+        private void IncreaseFrequency()
+        {
+            try
+            {
+                Frequency.Text = (Convert.ToInt32(Frequency.Text) * 2).ToString();
+            }
+            catch
+            {
+                Utility.ShowError("Некорректные данные в поле \"Частота\"");
             }
         }
 
@@ -115,5 +139,9 @@ namespace BeepMaker.Conrols
                 Utility.ShowError("Некорректные данные звука");
             }
         }
+
+        private void Mult2_Click(object sender, RoutedEventArgs e) => IncreaseFrequency();
+
+        private void Div_Click(object sender, RoutedEventArgs e) => DecreaseFrequency();
     }
 }
