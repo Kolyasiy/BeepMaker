@@ -4,42 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeepMaker"
+        xmlns:u="clr-namespace:BeepMaker.Classes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" KeyDown="Window_KeyDown">
+        Title="BeepMaker" Height="450" Width="800" Background="#303035" WindowStartupLocation="CenterScreen" KeyDown="HotkeysCall">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="10*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Новый файл" Margin="10" Click="NewWork"/>
-            <Button Content="Сгенерировать метод" Margin="10" Click="GenerateMethod"/>
-            <Button Content="Сохранить файл" Margin="10" Click="SaveFile"/>
-            <Button Content="Загрузить файл" Margin="10" Click="LoadFile"/>
+        <Menu Grid.ColumnSpan="2" Background="#202025">
+            <MenuItem Header="Файл" Foreground="WhiteSmoke">
+                <MenuItem Header="Новый" Click="NewWork"/>
+                <MenuItem Header="Загрузить" Click="LoadFile"/>
+                <MenuItem Header="Сохранить" Click="SaveFile"/>
+                <MenuItem Header="Сгенерировать" Click="GenerateMethod"/>
+            </MenuItem>
+        </Menu>
 
-            <GroupBox Header="Название файла" Margin="10" Width="200">
-                <TextBox x:Name="FileName"/>
-            </GroupBox>
-        </StackPanel>
-
-        <GroupBox Grid.Row="1" Header="Список звуков">
+        <GroupBox Grid.Row="1" Header="Список звуков" Margin="0,0,2,0">
             <ScrollViewer >
                 <StackPanel Name="SoundsList"/>
             </ScrollViewer>
         </GroupBox>
-        
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button x:Name="AddSound" Content="Вставить звук" Margin="10" Height="30" Click="AddSound_Click"/>
-            <Button x:Name="AddPause" Content="Вставить паузу" Margin="10" Height="30" Click="AddPause_Click"/>
+        <Border BorderBrush="#606060" BorderThickness="2" Grid.Column="1" Grid.Row="1" Margin="2,10,0,0">
+            <StackPanel>
+                <Button x:Name="AddSound" Style="{StaticResource ForImagedButton}" Click="AddSound_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.364"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Image Source="Icons\Звук.ico"/>
+                </Button>
+                <Button x:Name="AddPause" Style="{StaticResource ForImagedButton}" Click="AddPause_Click">
+                    <Image Source="Icons\Пауза.ico"/>
+                </Button>
 
-            <Button x:Name="Play" Content="Возпроизвести все" Margin="10,30" Height="40" Click="Play_Click"/>
-        </StackPanel>
+                <Button x:Name="Play" Margin="10,20" Style="{StaticResource ForImagedButton}" Height="40" Click="Play_Click" IsDefault="True">
+                    <Image Source="Icons\Играть.ico"/>
+                </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

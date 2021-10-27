@@ -53,6 +53,7 @@ namespace BeepMaker.Conrols
 
             Owner = owner;
             MainPart.Header = $"Пауза №{ID + 1}";
+            Utility.TextBoxSetEvents(Duration);
         }
 
         public void Play()

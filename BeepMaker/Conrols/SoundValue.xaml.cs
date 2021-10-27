@@ -53,6 +53,8 @@ namespace BeepMaker.Conrols
 
             Owner = owner;
             MainPart.Header = $"Звук №{ID + 1}";
+            Utility.TextBoxSetEvents(Duration);
+            Utility.TextBoxSetEvents(Frequency);
         }
 
 
@@ -99,6 +101,18 @@ namespace BeepMaker.Conrols
                 case Key.LeftCtrl:
                     Frequency.Text = (Convert.ToInt32(Frequency.Text) / 2).ToString();
                     break;
+            }
+        }
+
+        private void CopySound_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _ = new SoundValue(Owner, Convert.ToInt32(Frequency.Text), Convert.ToInt32(Duration.Text));
+            }
+            catch
+            {
+                Utility.ShowError("Некорректные данные звука");
             }
         }
     }

@@ -22,11 +22,23 @@
                 <TextBox x:Name="Duration" Text="1000"/>
             </GroupBox>
 
-            <StackPanel Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
-                <Button x:Name="PlayToHere" Margin="5" Grid.Column="1" Content="Возпроизвести до этого" Click="PlayToHere_Click"/>
-                <Button x:Name="PlayFromHere" Margin="5" Grid.Column="1" Content="Возпроизвести c этого" Click="PlayFromHere_Click"/>
-                <Button x:Name="DeletePause" Margin="5" Grid.Row="1" Grid.Column="1" Content="Удалить" Click="Delete_Click"/>
-            </StackPanel>
+            <Grid Grid.RowSpan="2" Grid.Column="1" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="PlayToHere" Margin="5" Grid.ColumnSpan="2" Content="Играть до этого" Click="PlayToHere_Click"/>
+                <Button x:Name="PlayFromHere" Margin="5" Grid.ColumnSpan="2" Grid.Row="1" Content="Играть c этого" Click="PlayFromHere_Click"/>
+                <Button x:Name="DeletePause" Margin="5" Style="{StaticResource ForImagedButton}" Grid.RowSpan="2" Grid.Column="2" Click="Delete_Click">
+                    <Image Source="ControlIcons\Закрыть.ico"/>
+                </Button>
+            </Grid>
         </Grid>
     </GroupBox>
 </UserControl>

@@ -41,5 +41,15 @@ namespace BeepMaker.Classes
             MessageBoxResult res = MessageBox.Show(val, "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             return res == MessageBoxResult.Yes;
         }
+
+        public static void TextBoxSetEvents(TextBox box)
+        {
+            box.GotFocus += TextBox_GotFocus;
+            box.LostFocus += TextBox_LostFocus;
+        }
+
+        private static void TextBox_GotFocus(object sender, RoutedEventArgs e) => App.HotkeysOn = false;
+
+        private static void TextBox_LostFocus(object sender, RoutedEventArgs e) => App.HotkeysOn = true;
     }
 }

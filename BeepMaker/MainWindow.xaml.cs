@@ -25,6 +25,7 @@ namespace BeepMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string FileName { get; set; }
         private FolderBrowserDialog folderDialog = new FolderBrowserDialog()
         {
             ShowNewFolderButton = true,
@@ -43,17 +44,13 @@ namespace BeepMaker
         public MainWindow()
         {
             InitializeComponent();
+            App.HotkeysOn = true;
         }
 
-        private void AddSound_Click(object sender, RoutedEventArgs e)
-        {
-            SoundValue value = new SoundValue(SoundsList);
-        }
 
-        private void AddPause_Click(object sender, RoutedEventArgs e)
-        {
-            PauseValue value = new PauseValue(SoundsList);
-        }
+        private void AddSound_Click(object sender, RoutedEventArgs e) => _ = new SoundValue(SoundsList);
+
+        private void AddPause_Click(object sender, RoutedEventArgs e) => _ = new PauseValue(SoundsList);
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
@@ -67,8 +64,12 @@ namespace BeepMaker
         {
             if (Utility.ShowQuestion("Вы уверены что хотите создать новый файл?\n"))
             {
-                FileName.Text = "";
-                SoundsList.Children.Clear();
+                NewFileDialog dialog = new NewFileDialog();
+                if (dialog.ShowDialog().Value)
+                {
+                    FileName = dialog.FileName.Text;
+                    SoundsList.Children.Clear();
+                }
             }
         }
 
@@ -79,7 +80,7 @@ namespace BeepMaker
         /// <param name="e"></param>
         private void GenerateMethod(object sender, RoutedEventArgs e)
         {
-            StringBuilder build = new StringBuilder($"public static void {FileName.Text.Replace(" ","")}_Play()" + Environment.NewLine);
+            StringBuilder build = new StringBuilder($"public static void {FileName.Replace(" ","")}_Play()" + Environment.NewLine);
             build.Append("{"+Environment.NewLine);
 
             foreach(IMyControls control in SoundsList.Children)
@@ -92,7 +93,7 @@ namespace BeepMaker
 
             if (res != System.Windows.Forms.DialogResult.Cancel)
             {
-                string path = $"{folderDialog.SelectedPath}\\{FileName.Text} Code.txt";
+                string path = $"{folderDialog.SelectedPath}\\{FileName} Code.txt";
                 File.Create(path).Close();
 
                 File.WriteAllText(path, build.ToString());
@@ -101,69 +102,66 @@ namespace BeepMaker
             }
         }
 
-        /// <summary>
-        /// Hotkeys
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void HotkeysCall(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            switch (e.Key)
+            if (App.HotkeysOn)
             {
-                case Key.OemTilde:
-                    PauseValue value = new PauseValue(SoundsList) { Height = 90 };
-                    break;
+                switch (e.Key)
+                {
+                    case Key.OemTilde:
+                        _ = new PauseValue(SoundsList) { Height = 90 };
+                        break;
 
-                case Key.Q:
-                    SoundValue soundQ = new SoundValue(SoundsList, 261, 1000);
-                    break;
+                    case Key.Q:
+                        _ = new SoundValue(SoundsList, 261, 1000);
+                        break;
 
-                case Key.D2:
-                    SoundValue sound2 = new SoundValue(SoundsList, 277, 1000);
-                    break;
+                    case Key.D2:
+                        _ = new SoundValue(SoundsList, 277, 1000);
+                        break;
 
-                case Key.W:
-                    SoundValue soundW = new SoundValue(SoundsList, 293, 1000);
-                    break;
+                    case Key.W:
+                        _ = new SoundValue(SoundsList, 293, 1000);
+                        break;
 
-                case Key.D3:
-                    SoundValue sound3 = new SoundValue(SoundsList, 311, 1000);
-                    break;
+                    case Key.D3:
+                        _ = new SoundValue(SoundsList, 311, 1000);
+                        break;
 
-                case Key.E:
-                    SoundValue soundE = new SoundValue(SoundsList, 329, 1000);
-                    break;
+                    case Key.E:
+                        _ = new SoundValue(SoundsList, 329, 1000);
+                        break;
 
-                case Key.R:
-                    SoundValue soundR = new SoundValue(SoundsList, 349, 1000);
-                    break;
+                    case Key.R:
+                        _ = new SoundValue(SoundsList, 349, 1000);
+                        break;
 
-                case Key.D5:
-                    SoundValue sound5 = new SoundValue(SoundsList, 369, 1000);
-                    break;
+                    case Key.D5:
+                        _ = new SoundValue(SoundsList, 369, 1000);
+                        break;
 
-                case Key.T:
-                    SoundValue soundT = new SoundValue(SoundsList, 392, 1000);
-                    break;
+                    case Key.T:
+                        _ = new SoundValue(SoundsList, 392, 1000);
+                        break;
 
-                case Key.D6:
-                    SoundValue sound6 = new SoundValue(SoundsList, 415, 1000);
-                    break;
+                    case Key.D6:
+                        _ = new SoundValue(SoundsList, 415, 1000);
+                        break;
 
-                case Key.Y:
-                    SoundValue soundY = new SoundValue(SoundsList, 440, 1000);
-                    break;
+                    case Key.Y:
+                        _ = new SoundValue(SoundsList, 440, 1000);
+                        break;
 
-                case Key.D7:
-                    SoundValue sound7 = new SoundValue(SoundsList, 466, 1000);
-                    break;
+                    case Key.D7:
+                        _ = new SoundValue(SoundsList, 466, 1000);
+                        break;
 
-                case Key.U:
-                    SoundValue soundU = new SoundValue(SoundsList, 493, 1000);
-                    break;
+                    case Key.U:
+                        _ = new SoundValue(SoundsList, 493, 1000);
+                        break;
+                }
             }
         }
-
         
         /// <summary>
         /// Create special-formated file(*.stxt) and saves data in it
@@ -182,7 +180,7 @@ namespace BeepMaker
 
             if (res != System.Windows.Forms.DialogResult.Cancel)
             {
-                string path = $"{folderDialog.SelectedPath}\\{FileName.Text}.stxt";
+                string path = $"{folderDialog.SelectedPath}\\{FileName}.stxt";
                 File.Create(path).Close();
                 File.WriteAllText(path, build.ToString());
             }
@@ -209,17 +207,16 @@ namespace BeepMaker
 
                     if (values.Length > 1)
                     {
-                        SoundValue value = new SoundValue(SoundsList, Utility.GetDigits(values[0]), Utility.GetDigits(values[1]));
+                        _ = new SoundValue(SoundsList, Utility.GetDigits(values[0]), Utility.GetDigits(values[1]));
                     }
                     else
                     {
-                        PauseValue value = new PauseValue(SoundsList, Utility.GetDigits(values[0]));
+                        _ = new PauseValue(SoundsList, Utility.GetDigits(values[0]));
                     }
                 }
 
-                FileName.Text = fileDialog.SafeFileName.Replace(".stxt", "");
+                FileName = fileDialog.SafeFileName.Replace(".stxt", "");
             }
         }
-
     }
 }
